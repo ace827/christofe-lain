@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christofe Lain — Songwriter & Recording Artist</title>
+<meta name="description" content="Christofe Lain — ASCAP Songwriter, Recording Artist & Author. Nashville, TN. Listen to music, explore the story, and get in touch.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark1: #111111;
+    --dark2: #1a1a1a;
+    --dark3: #222222;
+    --gold:  #c9a84c;
+    --gold2: #e8c870;
+    --gold3: #a07830;
+    --off:   #f8f5f0;
+    --warm:  #ede8e0;
+    --mid:   #888880;
+    --light: #ccc8c0;
+    --white: #ffffff;
+    --border: rgba(201,168,76,0.2);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
+
+  a { color: inherit; text-decoration: none; }
+
+  img { display: block; max-width: 100%; }
+
+  /* ─── SVG SPRITE ─── */
+  .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+  svg.icon { display: inline-block; width: 1em; height: 1em; vertical-align: middle; }
+
+  /* ─── TOP BAR ─── */
+  .topbar {
+    background: var(--gold);
+    color: var(--black);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 0.5rem 1rem;
+    flex-wrap: wrap;
+  }
+  .topbar span { display: flex; align-items: center; gap: 0.4rem; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 1.2rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.4s, padding 0.4s, backdrop-filter 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    padding: 0.8rem 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    color: var(--white);
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--light);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--black);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.4rem;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold2); transform: translateY(-1px); }
+  .nav-hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+  .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--white); transition: 0.3s; }
+
+  /* ─── HERO ─── */
+  #hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1920&q=85');
+    background-size: cover;
+    background-position: center top;
+    transform: scale(1.05);
+    transition: transform 8s ease-out;
+  }
+  .hero-bg.loaded { transform: scale(1); }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      rgba(10,10,10,0.92) 0%,
+      rgba(10,10,10,0.7) 50%,
+      rgba(10,10,10,0.3) 100%
+    );
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    padding-top: 6rem;
+  }
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 300;
+    color: var(--light);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 1rem 2.2rem;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-primary:hover {
+    background: var(--gold2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(201,168,76,0.35);
+  }
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.4);
+    color: var(--white);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 1rem 2.2rem;
+    border-radius: 2px;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-2px);
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--light);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  .hero-scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ─── STATS BAND ─── */
+  .stats-band {
+    background: var(--gold);
+    padding: 2rem;
+  }
+  .stats-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    text-align: center;
+  }
+  .stat-item { color: var(--black); }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  /* ─── SECTION SHARED ─── */
+  section { padding: 6rem 2rem; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .section-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-body {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--light);
+    line-height: 1.8;
+    max-width: 640px;
+  }
+
+  /* ─── ABOUT ─── */
+  #about { background: var(--dark1); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .about-img-wrap {
+    position: relative;
+  }
+  .about-img-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -12px 12px 12px -12px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    z-index: 0;
+  }
+  .about-img-wrap img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 580px;
+    object-fit: cover;
+    border-radius: 2px;
+    filter: grayscale(20%);
+  }
+  .about-badge {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    z-index: 2;
+    background: var(--gold);
+    color: var(--black);
+    padding: 1.2rem 1.5rem;
+    text-align: center;
+    border-radius: 2px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  }
+  .about-badge strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .about-badge span {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .about-text .section-body { max-width: 100%; margin-bottom: 1.5rem; }
+  .about-checks { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 0.8rem; }
+  .about-checks li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    font-size: 0.95rem;
+    color: var(--light);
+  }
+  .about-checks li svg { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+  .about-social {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .social-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    color: var(--light);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 0.55rem 1.1rem;
+    border-radius: 50px;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .social-pill:hover { background: var(--gold); border-color: var(--gold); color: var(--black); }
+  .social-pill svg { width: 16px; height: 16px; }
+
+  /* ─── MUSIC ─── */
+  #music { background: var(--black); }
+  .music-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .track-card {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+  .track-card:hover {
+    background: var(--dark3);
+    border-color: var(--gold);
+    transform: translateY(-3px);
+  }
+  .track-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--border);
+    min-width: 2.5rem;
+  }
+  .track-card:hover .track-num { color: var(--gold); }
+  .track-info { flex: 1; }
+  .track-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  .track-meta {
+    font-size: 0.75rem;
+    color: var(--mid);
+    letter-spacing: 0.05em;
+  }
+  .track-plays {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--gold);
+  }
+  .music-platforms {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .platform-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.8rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .platform-btn:hover { transform: translateY(-2px); }
+  .platform-btn.spotify { background: #1db954; color: #000; }
+  .platform-btn.soundcloud { background: #ff5500; color: #fff; }
+  .platform-btn:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+
+  /* ─── FEATURED SECTION (dark pullquote style) ─── */
+  #quote {
+    background: var(--dark2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+  .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem;
+    line-height: 0.5;
+    color: var(--gold);
+    opacity: 0.3;
+    margin-bottom: 1rem;
+  }
+  .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-style: italic;
+    font-weight: 400;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    line-height: 1.5;
+    color: var(--white);
+  }
+  .quote-attr {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ─── STORY / TIMELINE ─── */
+  #story { background: var(--dark1); }
+  .timeline {
+    margin-top: 3rem;
+    position: relative;
+    padding-left: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    padding-bottom: 3rem;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 0 4px rgba(201,168,76,0.15);
+  }
+  .timeline-year {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+  .timeline-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .timeline-body {
+    font-size: 0.95rem;
+    color: var(--light);
+    line-height: 1.7;
+  }
+
+  /* ─── GALLERY ─── */
+  #gallery { background: var(--black); }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 0.5rem;
+    margin-top: 3rem;
+  }
+  .gallery-item {
+    overflow: hidden;
+    border-radius: 2px;
+    aspect-ratio: 1;
+    position: relative;
+  }
+  .gallery-item.tall { grid-row: span 2; aspect-ratio: unset; }
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease, filter 0.3s;
+    filter: grayscale(30%);
+  }
+  .gallery-item:hover img { transform: scale(1.05); filter: grayscale(0%); }
+  .gallery-item-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,10,0);
+    transition: background 0.3s;
+    display: flex;
+    align-items: flex-end;
+    padding: 1rem;
+  }
+  .gallery-item:hover .gallery-item-overlay { background: rgba(10,10,10,0.3); }
+
+  /* ─── CONTACT ─── */
+  #contact { background: var(--dark2); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+  .contact-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .contact-info-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .contact-info-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 0.3rem;
+  }
+  .contact-info-val {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--white);
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 2px;
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    padding: 0.85rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus { border-color: var(--gold); }
+  .form-group textarea { resize: vertical; min-height: 130px; }
+  .form-submit {
+    background: var(--gold);
+    color: var(--black);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    align-self: flex-start;
+  }
+  .form-submit:hover { background: var(--gold2); transform: translateY(-2px); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--black);
+    border-top: 1px solid var(--border);
+    padding: 4rem 2rem 2rem;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  .footer-brand .nav-logo { font-size: 2rem; margin-bottom: 1rem; }
+  .footer-brand p {
+    font-size: 0.9rem;
+    color: var(--mid);
+    line-height: 1.7;
+    max-width: 280px;
+  }
+  .footer-col h4 {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul a {
+    font-size: 0.9rem;
+    color: var(--mid);
+    transition: color 0.2s;
+  }
+  .footer-col ul a:hover { color: var(--white); }
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--mid);
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-socials { display: flex; gap: 1rem; }
+  .footer-socials a {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mid);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .footer-socials a:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ─── MOBILE NAV OVERLAY ─── */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,10,0.98);
+    z-index: 99;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--white);
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+  .mobile-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  /* ─── REVEAL ANIMATIONS ─── */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .rl { opacity: 0; transform: translateX(-50px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .rl.in { opacity: 1; transform: translateX(0); }
+  .rr { opacity: 0; transform: translateX(50px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .rr.in { opacity: 1; transform: translateX(0); }
+  .d1 { transition-delay: 0.1s; }
+  .d2 { transition-delay: 0.2s; }
+  .d3 { transition-delay: 0.3s; }
+  .d4 { transition-delay: 0.4s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-img-wrap img { height: 400px; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item.tall { grid-row: span 1; aspect-ratio: 1; }
+    .stats-inner { grid-template-columns: repeat(2,1fr); gap: 1.5rem; }
+  }
+  @media (max-width: 640px) {
+    .topbar { display: none; }
+    nav { padding: 1rem; }
+    .nav-links, .nav-cta { display: none; }
+    .nav-hamburger { display: flex; }
+    .hero-title { font-size: 2.8rem; }
+    section { padding: 4rem 1.2rem; }
+    .stats-inner { grid-template-columns: repeat(2,1fr); }
+    .music-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG SPRITE -->
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-music" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+  </symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+  </symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <polyline points="20 6 9 17 4 12"/>
+  </symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M5 12h14m-7-7 7 7-7 7"/>
+  </symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor">
+    <polygon points="5 3 19 12 5 21 5 3"/>
+  </symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  </symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+  </symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>
+  </symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+  </symbol>
+  <symbol id="i-note" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+  </symbol>
+</svg>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMobileMenu()">&times;</button>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#music" onclick="closeMobileMenu()">Music</a>
+  <a href="#story" onclick="closeMobileMenu()">Story</a>
+  <a href="#gallery" onclick="closeMobileMenu()">Gallery</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span>
+    <svg class="icon" width="14" height="14"><use href="#i-pin"/></svg>
+    Nashville, TN &amp; Yonkers, NY
+  </span>
+  <span>
+    <svg class="icon" width="14" height="14"><use href="#i-mail"/></svg>
+    christofemusic@gmail.com
+  </span>
+  <span>
+    <svg class="icon" width="14" height="14"><use href="#i-note"/></svg>
+    ASCAP Songwriter · Liberator MUSIC
+  </span>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-logo">Christofe <span>Lain</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#music">Music</a></li>
+    <li><a href="#story">Story</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in Touch</a>
+  <div class="nav-hamburger" onclick="openMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow reveal">ASCAP Songwriter &amp; Recording Artist</div>
+    <h1 class="hero-title reveal d1">
+      Christofe<br><em>Lain</em>
+    </h1>
+    <p class="hero-sub reveal d2">
+      A songwriter who writes and plays like crazy. Published artist, storyteller, and the creative force behind Liberator MUSIC — crafting songs from Nashville that cut straight to the soul.
+    </p>
+    <div class="hero-btns reveal d3">
+      <a href="#music" class="btn-primary">
+        <svg class="icon" width="16" height="16"><use href="#i-play"/></svg>
+        Listen Now
+      </a>
+      <a href="#about" class="btn-outline">
+        <svg class="icon" width="16" height="16"><use href="#i-arrow-right"/></svg>
+        Read the Story
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="stat-num" data-count="4500">0</div>
+      <div class="stat-label">Facebook Followers</div>
+    </div>
+    <div class="stat-item reveal d1">
+      <div class="stat-num" data-count="50">0</div>
+      <div class="stat-label">Songs Written</div>
+    </div>
+    <div class="stat-item reveal d2">
+      <div class="stat-num" data-prefix="">ASCAP</div>
+      <div class="stat-label">Registered Songwriter</div>
+    </div>
+    <div class="stat-item reveal d3">
+      <div class="stat-num" data-prefix="">Nashville</div>
+      <div class="stat-label">Recording, TN</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner about-grid">
+    <div class="about-img-wrap rl">
+      <img
+        src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=85"
+        alt="Christofe Lain - Musician"
+        loading="lazy"
+      />
+      <div class="about-badge">
+        <strong>ASCAP</strong>
+        <span>Published Artist</span>
+      </div>
+    </div>
+    <div class="about-text rr">
+      <div class="section-eyebrow">The Artist</div>
+      <h2 class="section-title">More Than a<br><em>Songwriter</em></h2>
+      <p class="section-body">
+        Christofe Lain is a published recording artist, ASCAP-registered songwriter, and author operating out of Nashville, TN — the heartbeat of American music. Originally from Yonkers, New York, Christofe brings a raw, street-level authenticity to every song he touches.
+      </p>
+      <p class="section-body" style="margin-top:1rem;">
+        Under the Sly Doggie Productions and Liberator MUSIC banner, Christofe has spent decades honing a craft that bridges genre lines — combining soulful lyricism with melodic songwriting that resonates across audiences. His self-described style: <em>"Can play and write like crazy."</em>
+      </p>
+      <ul class="about-checks">
+        <li>
+          <svg class="icon" width="18" height="18"><use href="#i-check"/></svg>
+          ASCAP Registered Songwriter &amp; Publishing Rights Holder
+        </li>
+        <li>
+          <svg class="icon" width="18" height="18"><use href="#i-check"/></svg>
+          Recording Artist under Sly Doggie Prod. / CMG Nashville
+        </li>
+        <li>
+          <svg class="icon" width="18" height="18"><use href="#i-check"/></svg>
+          Author with published works alongside his music catalog
+        </li>
+        <li>
+          <svg class="icon" width="18" height="18"><use href="#i-check"/></svg>
+          Mercy University alumnus bringing academic depth to artistry
+        </li>
+        <li>
+          <svg class="icon" width="18" height="18"><use href="#i-check"/></svg>
+          Collaborative artist, open to sync licensing &amp; co-writes
+        </li>
+      </ul>
+      <div class="about-social">
+        <a href="https://www.facebook.com/christofe.lain" target="_blank" class="social-pill">
+          <svg class="icon" width="16" height="16"><use href="#i-fb"/></svg>
+          Facebook
+        </a>
+        <a href="https://www.instagram.com/federicoliberatore807" target="_blank" class="social-pill">
+          <svg class="icon" width="16" height="16"><use href="#i-ig"/></svg>
+          Instagram
+        </a>
+        <a href="https://soundcloud.com/cristofe-and-lain" target="_blank" class="social-pill">
+          <svg style="width:16px;height:16px;fill:#ff5500" viewBox="0 0 24 24"><path d="M1.175 12.225c-.017 0-.032.01-.038.028l-.552 3.403.552 3.348c.006.018.021.03.038.03.017 0 .032-.012.038-.03l.626-3.348L1.213 12.253c-.006-.018-.021-.028-.038-.028zm.984-.4c-.026 0-.049.016-.055.04l-.472 3.763.472 3.665c.006.024.029.04.055.04.025 0 .048-.016.054-.04l.538-3.665L2.158 11.865c-.006-.024-.029-.04-.054-.04zm1.028-.115c-.03 0-.057.022-.062.05l-.402 3.878.402 3.755c.005.029.032.05.062.05.03 0 .057-.021.062-.05l.458-3.755L3.185 11.76c-.005-.028-.032-.05-.062-.05zm4.338-1.14c-.18-.065-.37-.1-.572-.1-.386 0-.748.12-1.05.33-.08-2.175-1.86-3.9-4.066-3.9-.396 0-.782.062-1.14.175-.12.04-.152.083-.154.124v7.75c.002.042.036.077.082.083h6.9c.046-.006.082-.041.082-.083V11.57c0-.5-.33-.955-.814-1.114l.003-.003-.271.117zm-4.338.145c-.032 0-.06.025-.065.058L2.65 14.628l.463 3.704c.005.033.033.057.065.057.032 0 .06-.024.065-.057l.527-3.704L3.21 10.773c-.005-.033-.033-.058-.065-.058zm1.028-.106c-.035 0-.066.028-.07.063l-.39 3.981.39 3.736c.004.035.035.063.07.063.035 0 .066-.028.07-.063l.444-3.736-.444-3.981c-.004-.035-.035-.063-.07-.063z"/></svg>
+          SoundCloud
+        </a>
+        <a href="https://open.spotify.com/artist/3t4pNU66an2jre6btoqrx5" target="_blank" class="social-pill">
+          <svg style="width:16px;height:16px;fill:#1db954" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+          Spotify
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PULLQUOTE -->
+<div id="quote">
+  <div class="section-inner" style="text-align:center;">
+    <div class="quote-mark">"</div>
+    <p class="quote-text reveal">
+      Can play and write like crazy — the kind of songwriter who lives inside the music.
+    </p>
+    <div class="quote-attr reveal d1">— Christofe Lain · ASCAP · Liberator MUSIC</div>
+  </div>
+</div>
+
+<!-- MUSIC -->
+<section id="music">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">Discography</div>
+    <h2 class="section-title reveal d1">Top <em>Tracks</em></h2>
+    <p class="section-body reveal d2">Stream Christofe's music on Spotify and SoundCloud. From soulful ballads to radio-ready anthems — every track tells a real story.</p>
+
+    <div class="music-grid">
+      <a href="https://open.spotify.com/artist/3t4pNU66an2jre6btoqrx5" target="_blank" class="track-card reveal">
+        <div class="track-num">01</div>
+        <div class="track-info">
+          <div class="track-title">Stay With You</div>
+          <div class="track-meta">Spotify · Radio Edit &amp; Extended</div>
+        </div>
+        <div class="track-plays">50K plays</div>
+      </a>
+      <a href="https://open.spotify.com/artist/3t4pNU66an2jre6btoqrx5" target="_blank" class="track-card reveal d1">
+        <div class="track-num">02</div>
+        <div class="track-info">
+          <div class="track-title">Relive</div>
+          <div class="track-meta">Spotify · Single</div>
+        </div>
+        <div class="track-plays">44K plays</div>
+      </a>
+      <a href="https://open.spotify.com/artist/3t4pNU66an2jre6btoqrx5" target="_blank" class="track-card reveal d2">
+        <div class="track-num">03</div>
+        <div class="track-info">
+          <div class="track-title">I Got 2</div>
+          <div class="track-meta">Spotify · Single</div>
+        </div>
+        <div class="track-plays">36K plays</div>
+      </a>
+      <a href="https://open.spotify.com/artist/3t4pNU66an2jre6btoqrx5" target="_blank" class="track-card reveal d3">
+        <div class="track-num">04</div>
+        <div class="track-info">
+          <div class="track-title">I'm Not a Superstar</div>
+          <div class="track-meta">Spotify · Radio Edit</div>
+        </div>
+        <div class="track-plays">17K plays</div>
+      </a>
+      <a href="https://soundcloud.com/cristofe-and-lain" target="_blank" class="track-card reveal d1">
+        <div class="track-num">05</div>
+        <div class="track-info">
+          <div class="track-title">All I Want</div>
+          <div class="track-meta">SoundCloud · Promo</div>
+        </div>
+        <div class="track-plays">SoundCloud</div>
+      </a>
+      <a href="https://soundcloud.com/cristofe-and-lain" target="_blank" class="track-card reveal d2">
+        <div class="track-num">06</div>
+        <div class="track-info">
+          <div class="track-title">Mansions</div>
+          <div class="track-meta">SoundCloud · Single</div>
+        </div>
+        <div class="track-plays">SoundCloud</div>
+      </a>
+      <a href="https://soundcloud.com/cristofe-and-lain" target="_blank" class="track-card reveal d3">
+        <div class="track-num">07</div>
+        <div class="track-info">
+          <div class="track-title">Sometimes I Lie</div>
+          <div class="track-meta">SoundCloud · Single</div>
+        </div>
+        <div class="track-plays">SoundCloud</div>
+      </a>
+    </div>
+
+    <div class="music-platforms">
+      <a href="https://open.spotify.com/artist/3t4pNU66an2jre6btoqrx5" target="_blank" class="platform-btn spotify">
+        <svg style="width:20px;height:20px;fill:#000" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+        Play on Spotify
+      </a>
+      <a href="https://soundcloud.com/cristofe-and-lain" target="_blank" class="platform-btn soundcloud">
+        <svg style="width:20px;height:20px;fill:#fff" viewBox="0 0 24 24"><path d="M1.175 12.225c-.017 0-.032.01-.038.028l-.552 3.403.552 3.348c.006.018.021.03.038.03.017 0 .032-.012.038-.03l.626-3.348L1.213 12.253c-.006-.018-.021-.028-.038-.028zm.984-.4c-.026 0-.049.016-.055.04l-.472 3.763.472 3.665c.006.024.029.04.055.04.025 0 .048-.016.054-.04l.538-3.665L2.158 11.865c-.006-.024-.029-.04-.054-.04zm1.028-.115c-.03 0-.057.022-.062.05l-.402 3.878.402 3.755c.005.029.032.05.062.05.03 0 .057-.021.062-.05l.458-3.755L3.185 11.76c-.005-.028-.032-.05-.062-.05zm4.338-1.14c-.18-.065-.37-.1-.572-.1-.386 0-.748.12-1.05.33-.08-2.175-1.86-3.9-4.066-3.9-.396 0-.782.062-1.14.175-.12.04-.152.083-.154.124v7.75c.002.042.036.077.082.083h6.9c.046-.006.082-.041.082-.083V11.57c0-.5-.33-.955-.814-1.114l.003-.003-.271.117zm-4.338.145c-.032 0-.06.025-.065.058L2.65 14.628l.463 3.704c.005.033.033.057.065.057.032 0 .06-.024.065-.057l.527-3.704L3.21 10.773c-.005-.033-.033-.058-.065-.058zm1.028-.106c-.035 0-.066.028-.07.063l-.39 3.981.39 3.736c.004.035.035.063.07.063.035 0 .066-.028.07-.063l.444-3.736-.444-3.981c-.004-.035-.035-.063-.07-.063z"/></svg>
+        Play on SoundCloud
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story">
+  <div class="section-inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;">
+      <div class="rl">
+        <div class="section-eyebrow">The Journey</div>
+        <h2 class="section-title">A Life <em>Lived<br>in Music</em></h2>
+        <p class="section-body">
+          From the streets of Yonkers to the studios of Nashville — Christofe Lain's story is one of relentless passion, talent, and an unshakeable belief in the power of a great song.
+        </p>
+        <img
+          src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=85"
+          alt="Studio session"
+          style="margin-top:2.5rem;width:100%;border-radius:2px;filter:grayscale(20%);"
+          loading="lazy"
+        />
+      </div>
+      <div class="timeline rr">
+        <div class="timeline-item">
+          <div class="timeline-year">Yonkers, NY</div>
+          <div class="timeline-title">The Beginning</div>
+          <div class="timeline-body">Raised in Yonkers, New York — a city that shaped his voice and gave him the grit to tell real stories through music. The love affair with songwriting started early and never let go.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Mercy University</div>
+          <div class="timeline-title">Academic Foundation</div>
+          <div class="timeline-body">Christofe pursued formal education at Mercy University, where he deepened his understanding of storytelling, writing, and the craft behind great music and literature.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Liberator MUSIC</div>
+          <div class="timeline-title">ASCAP Registration</div>
+          <div class="timeline-body">Registered with ASCAP under Liberator MUSIC, Christofe locked in his publishing rights and established himself as a serious professional in the music industry.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Sly Doggie Prod.</div>
+          <div class="timeline-title">Nashville Recording</div>
+          <div class="timeline-body">Partnered with Sly Doggie Productions and CMG Nashville to record and release a catalog of original music — including standout Spotify tracks like "Stay With You" and "Relive."</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Now</div>
+          <div class="timeline-title">Publishing &amp; Beyond</div>
+          <div class="timeline-body">A published recording artist, songwriter, and author — Christofe continues creating, collaborating, and building a legacy one song at a time.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">Visual Story</div>
+    <h2 class="section-title reveal d1">In the <em>Spotlight</em></h2>
+    <div class="gallery-grid" style="margin-top:3rem;">
+      <div class="gallery-item tall reveal">
+        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=85" alt="Performance" loading="lazy"/>
+      </div>
+      <div class="gallery-item reveal d1">
+        <img src="https://images.unsplash.com/photo-1571266028243-e4733b0f0bb0?w=600&q=85" alt="Studio" loading="lazy"/>
+      </div>
+      <div class="gallery-item reveal d2">
+        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&q=85" alt="Music" loading="lazy"/>
+      </div>
+      <div class="gallery-item reveal d1">
+        <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=600&q=85" alt="Stage" loading="lazy"/>
+      </div>
+      <div class="gallery-item reveal d2">
+        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=85" alt="Guitar" loading="lazy"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">Get In Touch</div>
+    <h2 class="section-title reveal d1">Let's <em>Connect</em></h2>
+    <div class="contact-grid">
+      <div class="rl">
+        <p class="section-body" style="max-width:100%;margin-bottom:2.5rem;">
+          Whether you're interested in co-writing, sync licensing, bookings, or just want to reach out — Christofe loves connecting with fellow music lovers and industry professionals.
+        </p>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <svg class="icon" width="18" height="18"><use href="#i-mail"/></svg>
+          </div>
+          <div>
+            <div class="contact-info-label">Email</div>
+            <div class="contact-info-val">christofemusic@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <svg class="icon" width="18" height="18"><use href="#i-mail"/></svg>
+          </div>
+          <div>
+            <div class="contact-info-label">Label / Business</div>
+            <div class="contact-info-val">liberatoremusiccorp@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <svg class="icon" width="18" height="18"><use href="#i-pin"/></svg>
+          </div>
+          <div>
+            <div class="contact-info-label">Based In</div>
+            <div class="contact-info-val">Nashville, TN · Yonkers, NY</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">
+            <svg class="icon" width="18" height="18"><use href="#i-mic"/></svg>
+          </div>
+          <div>
+            <div class="contact-info-label">Open To</div>
+            <div class="contact-info-val">Co-writes · Sync Licensing · Collaborations · Bookings</div>
+          </div>
+        </div>
+      </div>
+      <div class="rr">
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="Your name" required/>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Your last name"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="your@email.com" required/>
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <select>
+              <option>Co-Write Inquiry</option>
+              <option>Sync Licensing</option>
+              <option>Booking / Performance</option>
+              <option>General Inquiry</option>
+              <option>Press / Media</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea placeholder="Tell Christofe what you have in mind..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo">Christofe <span>Lain</span></div>
+        <p>ASCAP Songwriter, Recording Artist &amp; Author. Crafting music from Nashville, TN that tells real stories and moves real people.</p>
+        <div class="about-social" style="margin-top:1.5rem;">
+          <a href="https://www.facebook.com/christofe.lain" target="_blank" class="social-pill">
+            <svg class="icon" width="14" height="14"><use href="#i-fb"/></svg> Facebook
+          </a>
+          <a href="https://www.instagram.com/federicoliberatore807" target="_blank" class="social-pill">
+            <svg class="icon" width="14" height="14"><use href="#i-ig"/></svg> Instagram
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#music">Music</a></li>
+          <li><a href="#story">Story</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Music</h4>
+        <ul>
+          <li><a href="https://open.spotify.com/artist/3t4pNU66an2jre6btoqrx5" target="_blank">Spotify</a></li>
+          <li><a href="https://soundcloud.com/cristofe-and-lain" target="_blank">SoundCloud</a></li>
+          <li><a href="https://www.facebook.com/christofeandlainFB/" target="_blank">Christofe &amp; Lain FB</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:christofemusic@gmail.com">christofemusic@gmail.com</a></li>
+          <li><a href="mailto:liberatoremusiccorp@gmail.com">Liberator MUSIC Corp</a></li>
+          <li><a href="#contact">Send a Message</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Christofe Lain · Liberator MUSIC · ASCAP</span>
+      <span>Nashville, TN · Yonkers, NY</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // NAV SCROLL
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // MOBILE MENU
+  function openMobileMenu() { document.getElementById('mobileMenu').classList.add('open'); }
+  function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+  // HERO BG ZOOM
+  window.addEventListener('load', () => {
+    document.getElementById('heroBg').classList.add('loaded');
+  });
+
+  // REVEAL ON SCROLL
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal, .rl, .rr').forEach(el => observer.observe(el));
+
+  // COUNTER ANIMATION
+  function animateCount(el) {
+    const target = parseInt(el.getAttribute('data-count'));
+    if (isNaN(target)) return;
+    const prefix = el.getAttribute('data-prefix') || '';
+    let start = 0;
+    const duration = 1800;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const val = Math.floor(ease * target);
+      el.textContent = prefix + (val >= 1000 ? (val/1000).toFixed(1) + 'K' : val);
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = prefix + (target >= 1000 ? (target/1000).toFixed(1) + 'K' : target);
+    };
+    requestAnimationFrame(step);
+  }
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); countObserver.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
+
+  // FORM SUBMIT
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = 'Message Sent!';
+    btn.style.background = '#1db954';
+    setTimeout(() => { btn.textContent = 'Send Message'; btn.style.background = ''; }, 3000);
+  }
+</script>
+</body>
+</html>
